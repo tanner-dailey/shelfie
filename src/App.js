@@ -10,7 +10,8 @@ class App extends Component {
     super();
 
     this.state = {
-      inventory: []
+      inventory: [],
+      selected: {}
     }
     this.showInv = this.showInv.bind(this)
   }
@@ -22,16 +23,22 @@ class App extends Component {
    })
    .catch(err => console.log(err))
   }
+
   componentDidMount(){
      this.showInv();
+  }
+
+  selectProduct = (product) => {
+    this.setState({selected: product})
+    console.log(this.state.selected)
   }
   
   render(){
     return (
       <div>
         <Header />
-        <Dashboard inventory={this.state.inventory} />
-        <Form showInv={this.showInv}/>
+        <Dashboard selectFn ={this.selectProduct} showInv={this.showInv} inventory={this.state.inventory} />
+        <Form selected={this.state.selected} showInv={this.showInv}/>
       </div>
     );
   }
